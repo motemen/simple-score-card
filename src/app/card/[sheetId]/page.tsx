@@ -17,7 +17,6 @@ function parseTSV(tsv: string): Data {
   };
 
   for (const row of rows) {
-    console.log(row);
     const cells = row.filter((cell) => cell !== "");
 
     if (cells.length < 2) continue;
@@ -61,7 +60,12 @@ export default async function Card({
     sheetId
   )}/export?format=tsv`;
 
-  const text = await fetch(url).then((res) => res.text());
+  const text = await fetch(url, { cache: "no-store" }).then((res) => {
+    if (!res.ok) {
+      throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
+    }
+    return res.text();
+  });
   const { headline, status, list } = parseTSV(text);
 
   return (
