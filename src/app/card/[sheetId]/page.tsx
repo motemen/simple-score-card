@@ -77,7 +77,7 @@ export default async function Card({ params: { sheetId } }: Props) {
   const { headline, status, list } = await getSheetData(sheetId);
 
   return (
-    <main className="flex flex-col gap-6 justify-center items-center mx-1 my-10">
+    <main className="flex flex-col gap-8 justify-center items-center mx-1 mt-16">
       <div>
         {headline.map(([key, value], i) => (
           <div
@@ -141,7 +141,7 @@ function ListItem({ item }: { item: string }) {
   const parts = item.split(regex);
 
   return (
-    <li className="px-5 py-3 flex">
+    <li className="px-5 py-3 flex items-center">
       {parts.map((part, index) => (
         <React.Fragment key={index}>
           {index % 2 === 0 ? (

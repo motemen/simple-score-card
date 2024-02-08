@@ -7,7 +7,11 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {},
+  theme: {
+    fontFamily: {
+      sans: ["var(--font-inter)", "var(--font-biz-ud-gothic)", "sans-serif"],
+    },
+  },
   plugins: [daisyui],
   daisyui: {
     themes: ["light"],
