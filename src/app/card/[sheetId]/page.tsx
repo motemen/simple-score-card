@@ -2,15 +2,15 @@ import { Metadata } from "next";
 import React from "react";
 export const runtime = "edge";
 
-type Data = {
+type CardData = {
   headline: [key: string, value: string][];
   status: ([symbol: string] | [key: string, value: string])[];
   list: string[];
 };
 
-function parseTSV(tsv: string): Data {
+function parseTSV(tsv: string): CardData {
   const rows = tsv.split(/\r?\n/).map((row) => row.split("\t"));
-  const data: Data = {
+  const data: CardData = {
     headline: [],
     status: [],
     list: [],
@@ -45,17 +45,7 @@ function parseTSV(tsv: string): Data {
   return data;
 }
 
-export const metadata: Metadata = {
-  title: "Simple Score Card",
-};
-
-export default async function Card({
-  params,
-}: {
-  params: { sheetId: string };
-}) {
-  const { sheetId } = params;
-
+const getSheetData = async (sheetId: string): Promise<CardData> => {
   const url = `https://docs.google.com/spreadsheets/d/${encodeURIComponent(
     sheetId
   )}/export?format=tsv`;
@@ -66,7 +56,25 @@ export default async function Card({
     }
     return res.text();
   });
-  const { headline, status, list } = parseTSV(text);
+
+  return parseTSV(text);
+};
+type Props = {
+  params: { sheetId: string };
+};
+
+export async function generateMetadata({
+  params: { sheetId },
+}: Props): Promise<Metadata> {
+  const { headline } = await getSheetData(sheetId);
+
+  return {
+    title: headline?.[0]?.[0] ?? "Simple Score Card",
+  };
+}
+
+export default async function Card({ params: { sheetId } }: Props) {
+  const { headline, status, list } = await getSheetData(sheetId);
 
   return (
     <main className="flex flex-col gap-6 justify-center items-center mx-1 my-10">
