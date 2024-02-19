@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import ViewCardForm from "@/components/ViewCardForm";
 
 export const metadata: Metadata = {
   title: "シンプルスコアカード | カッコイイスコアカードを簡単に生成",
@@ -18,7 +19,7 @@ export default function Top() {
         <div className="mt-6">
           シンプルスコアカードは、カッコイイスコアカードを簡単に生成できるツールです。
         </div>
-        <h2 className="text-2xl my-5">使い方</h2>
+        <h2 className="text-2xl mb-5 mt-10">使い方</h2>
         <ol className="list-decimal ps-5">
           <li>Googleスプレッドシートを作成し、リンク公開で共有します。</li>
           <li>
@@ -43,7 +44,7 @@ export default function Top() {
                 </a>
               </li>
               <li>
-                カードURL:{" "}
+                👉 カードURL:{" "}
                 <a
                   className="text-blue-600 underline underline-offset-2"
                   href={`./card/${SAMPLE_SHEET_ID}`}
@@ -54,8 +55,12 @@ export default function Top() {
               </li>
             </ul>
           </li>
+          <li>
+            シートを作ったらここからジャンプ:
+            <ViewCardForm />
+          </li>
         </ol>
-        <h2 className="text-2xl my-5">種別の例</h2>
+        <h2 className="text-2xl mb-5 mt-10">種別の例</h2>
         <h3 className="text-xl my-4">
           A列=<code>headline</code>
         </h3>
