@@ -103,6 +103,16 @@ export default function Top() {
           </ul>
         </div>
       </div>
+      <footer>
+        <div className="mt-12 text-right border-t border-gray-300 m-4 px-1 py-3">
+          <a
+            className="text-blue-600 underline underline-offset-2"
+            href="https://github.com/motemen/simple-score-card"
+          >
+            GitHub
+          </a>
+        </div>
+      </footer>
     </main>
   );
 }
